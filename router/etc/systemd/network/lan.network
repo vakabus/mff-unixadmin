@@ -1,0 +1,15 @@
+[Match]
+Name=ens4
+
+[Network]
+DHCPServer=true
+IPForward=true
+Address=10.0.38.1/24
+Address=10.0.38.2/24
+DNS=10.0.38.2
+
+[DHCPServer]
+PoolOffset=1
+PoolSize=200
+EmitDNS=yes
+DNS=10.0.38.2

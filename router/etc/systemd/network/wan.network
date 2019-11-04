@@ -1,0 +1,9 @@
+[Match]
+Name=ens3
+
+[Network]
+Address=10.0.0.38/24
+Address=2a01:4f8:c2c:bb6c:4:42:0:38/96
+Gateway=10.0.0.1
+DNS=10.0.0.1
+IPForward=true
