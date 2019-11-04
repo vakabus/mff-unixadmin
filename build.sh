@@ -1,13 +1,19 @@
 #!/bin/bash
 
-
 name=$1
+
+if test -z "$name"; then
+	echo "Name server was not provided!"
+	exit 1
+fi
 
 outdir=_build
 packages=$(cat $name/packages.list | tr '\n' ' ')
 
 root=$outdir/$name-root
 back_up=../..
+
+
 
 mkdir -p $root
 echo "Initializing rootfs with packages" 1>&2
@@ -42,7 +48,7 @@ chown -R root:root $root/etc
 
 
 echo "Building ramdisk"
-cd $root; find -print0 | cpio --null -ov --format=newc | gzip > "$back_up/$outdir/$name-rootfs.cpio.gz"; cd $back_up
+cd $root; find -print0  | cpio --null -ov --format=newc 2>/dev/null | gzip > "$back_up/$outdir/$name-rootfs.cpio.gz"; cd $back_up
 echo "extracting kernel"
 cp $root/boot/vmlinuz-linux $outdir/$name-kernel.img
 
