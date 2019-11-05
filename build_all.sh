@@ -10,3 +10,4 @@ rm -rf _build/
 ./build.sh router
 ./build.sh dns_10.0.38.2
 ./build.sh ns1
+./build.sh ns2
