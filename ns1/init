@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# vyrabim uzivatele teacher
+useradd -m teacher
+usermod -a -G wheel teacher
+mkdir -p /home/teacher/.ssh
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDk2LslO4GXBGjBKHgA46/8TfPDJluGKC406Db6EWGkPLcwWtn5KzWUYmt+7rSDzVPH1dp48S6V0ZCrkGBaUa3OQwdSg7vWfPoEDQ+V3BeBNemvAaXBxvgFNCLe//mn8lKpx2o2iZbbM9vRVpod5me52DqdokxQqlrq8wPXUADlA1vefejOXmEtbjBvzApUSOX2N68nXHg5HsZChrdXCWxYPqVnTkQlC3e7Q1NH38nC4RtQEWZzplYAtl42svY2bad1XtjbAHJirXxb3J7H/eouP4XiuEbOkUZ15ZBhIrRJbZlpn0knd17Kvz0MNpTqEoiQqC8obgfvLUSqyKpPL4f/ asch@unixadmin.ms.mff.cuni.cz" > /home/teacher/.ssh/authorized_keys
+chown -R teacher:teacher /home/teacher
+
+# resim problem s prihlasovanim pomoci ssh klicu
+chown -R root:root /root
+
+exec /lib/systemd/systemd

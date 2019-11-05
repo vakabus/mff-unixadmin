@@ -1,7 +1,7 @@
 [Match]
-Name=ens5
+Name=ens4
 
 [Network]
 IPForward=true
-Address=10.0.138.1/24
+Address=10.0.38.1/24
 DNS=10.0.38.2
