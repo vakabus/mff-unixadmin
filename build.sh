@@ -17,7 +17,7 @@ back_up=../..
 
 mkdir -p $root
 echo "Initializing rootfs with packages" 1>&2
-pacstrap -c $root base linux git $packages
+pacstrap -c $root base sudo linux git $packages
 
 
 echo "Copying configuration"
