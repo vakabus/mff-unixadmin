@@ -17,7 +17,7 @@ back_up=../..
 
 mkdir -p $root
 echo "Initializing rootfs with packages" 1>&2
-pacstrap -c $root base sudo linux git $packages
+pacstrap -c $root base sudo linux git zerotier-one $packages
 
 
 echo "Copying configuration"
@@ -35,6 +35,8 @@ echo "Applying patches to work better as initramdisk"
 mv $root/etc/os-release $root/initrd-release
 rm $root/boot/init*
 
+# save name into rootfs for debugging
+echo "$name" > $root/name
 
 # changing password for root user
 cat $root/etc/shadow | sed '/^root:.*$/d' > $root/etc/shadow2

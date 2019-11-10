@@ -1,0 +1,12 @@
+[Unit]
+Description=ZeroTier join my net
+Requires=zerotier-one.service
+After=zerotier-one.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "sleep 20; /usr/bin/zerotier-cli join 0cccb752f7949800"
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

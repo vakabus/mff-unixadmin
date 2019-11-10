@@ -6,7 +6,7 @@ reboot() {
 
 upload() {
 	rsync -r --progress _build unixadmin:
-	scp supervisord.conf unixadmin:supervisord.conf
+	rsync -r --progress supervisord.conf unixadmin:supervisord.conf
 }
 
 
