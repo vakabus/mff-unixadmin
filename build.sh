@@ -49,7 +49,7 @@ grep root $root/etc/passwd | sed 's/^root/teacher/' >> $root/etc/passwd
 mkdir $root/home/teacher
 
 # add trusted-keys from our TLDs
-curl "https://asch.cz/unix/trusted-una.key" >> $root/etc/trusted-key.key
+curl -s "https://asch.cz/unix/trusted-una.key" > $root/etc/trusted-una.key
 
 # fixing up permissions
 chown -R root:root $root/root
