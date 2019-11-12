@@ -1,0 +1,9 @@
+[Unit]
+Description=Dump DS records
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/dump_ds_keys.sh
+
+[Install]
+WantedBy=multi-user.target
