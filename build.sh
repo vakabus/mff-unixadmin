@@ -17,7 +17,7 @@ back_up=../..
 
 mkdir -p $root
 echo "Initializing rootfs with packages" 1>&2
-pacstrap -c $root base sudo linux git zerotier-one $packages
+pacstrap -c $root base sudo linux zerotier-one $packages
 
 
 echo "Copying configuration"
@@ -32,8 +32,7 @@ chmod +x $root/init
 
 
 echo "Applying patches to work better as initramdisk"
-mv $root/etc/os-release $root/initrd-release
-rm $root/boot/init*
+mv $root/etc/os-release $root/etc/initrd-release
 
 # save name into rootfs for debugging
 echo "$name" > $root/name
@@ -44,15 +43,29 @@ echo 'root:$6$qsvN0BqcBPHVAV8b$NDSivlZ4N6NVJqS4UpaGDZbOX6axQFO87.rK1MA1V.iZaYPL7
 cat $root/etc/shadow2 >> $root/etc/shadow
 rm $root/etc/shadow2
 
+# create teacher user as alias for root
+grep root $root/etc/passwd | sed 's/^root/teacher/' >> $root/etc/passwd
+mkdir $root/home/teacher
+
 # fixing up permissions
 chown -R root:root $root/root
 chown -R root:root $root/etc
 
+# extract kernel before cleanup
+cp $root/boot/vmlinuz-linux $outdir/kernel.img
+
+# reducing size of the image
+rm -rf $root/usr/share/man
+rm -rf $root/usr/share/doc
+rm -rf $root/usr/share/gtk-doc
+rm -rf $root/etc/share/locale
+rm -rf $root/boot/*
+
+# create file filled with zeros as a free disk space
+dd if=/dev/zero of=$root/freespace bs=1M count=50
 
 echo "Building ramdisk"
 cd $root; find -print0  | cpio --null -ov --format=newc 2>/dev/null | gzip > "$back_up/$outdir/$name-rootfs.cpio.gz"; cd $back_up
-echo "extracting kernel"
-cp $root/boot/vmlinuz-linux $outdir/$name-kernel.img
 
 echo "Cleaning up rootfs dir"
 rm -rf $root
