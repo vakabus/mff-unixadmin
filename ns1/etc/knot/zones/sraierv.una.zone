@@ -14,7 +14,11 @@ $TTL 300
 ns1	IN	A	10.0.38.10
 ns2	IN	A	10.0.138.10
 rt	IN	A	10.0.0.38
+mx1	IN	A	10.0.38.20
+mx2	IN	A	10.0.138.20
 gw	IN	CNAME	rt.sraierv.una.
+@	IN	MX	10 mx1.sraierv.una.
+@	IN	MX	20 mx2.sraierv.una.
 
 10-0-0-0	IN	A	10.0.0.0
 10-0-0-1	IN	A	10.0.0.1

@@ -11,5 +11,8 @@ upload() {
 
 
 
-upload
+time upload
 reboot
+
+echo
+echo "RAM disks uploaded and systems rebooted!"
