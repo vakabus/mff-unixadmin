@@ -1,0 +1,10 @@
+[Unit]
+Description=Install to disk
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "sleep 10; bash /usr/bin/migrate_to_disk.sh"
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
