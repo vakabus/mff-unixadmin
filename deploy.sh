@@ -5,7 +5,7 @@ reboot() {
 }
 
 shutdown() {
-	ssh unixadmin "killall -SIGINT supervisord"
+	ssh unixadmin "killall -SIGINT supervisord; rm -r vde*"
 }
 
 boot() {
