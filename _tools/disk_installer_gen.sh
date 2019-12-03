@@ -11,12 +11,12 @@ if test -z "$vm"; then
 fi
 
 # actual installation:
-if test ! -e "$vm/usr/bin/migrate_to_disk.sh"; then
-    echo "DISK Migrator not found! Installing..."
+if test ! -e "$vm/usr/bin/disk_installer.sh"; then
+    echo "DISK installer not found! Installing..."
     mkdir -p "$vm/usr/bin"
     mkdir -p "$vm/etc/systemd/system/multi-user.target.wants"
-    cp _tools/migrate_to_disk.sh $vm/usr/bin/migrate_to_disk.sh
-    chmod +x $vm/usr/bin/migrate_to_disk.sh
+    cp _tools/disk_installer.sh $vm/usr/bin/disk_installer.sh
+    chmod +x $vm/usr/bin/disk_installer.sh
     cp _tools/disk_installer.service $vm/etc/systemd/system/
-    ln -s /etc/systemd/system/disk_installer.service $vm/etc/systemd/system/multi-user.target.wants/disk_installer.service
+    ln -s -f /etc/systemd/system/disk_installer.service $vm/etc/systemd/system/multi-user.target.wants/disk_installer.service
 fi

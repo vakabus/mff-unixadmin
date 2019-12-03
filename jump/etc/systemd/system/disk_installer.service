@@ -5,7 +5,7 @@ After=systemd-udevd.service
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c "sleep 1; bash /usr/bin/disk_installer.sh"
+ExecStart=/bin/bash -c "sleep 8; bash /usr/bin/disk_installer.sh"
 RemainAfterExit=yes
 
 [Install]
