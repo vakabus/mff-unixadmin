@@ -24,6 +24,17 @@ done
 EOL
 }
 
+recreate_data_disks() {
+	ssh unixadmin <<EOL
+rm -rf _data_disks
+mkdir -p _data_disks
+cd _data_disks
+for i in \$(seq 0 9); do
+	qemu-img create \$i.img 1G
+done
+EOL
+}
+
 upload() {
 	rsync -r --progress _build unixadmin:
 	rsync -r --progress supervisord.conf unixadmin:supervisord.conf
@@ -35,6 +46,7 @@ upload() {
 time upload
 shutdown
 recreate_disks
+recreate_data_disks
 boot
 
 echo

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VMS="router dns_10.0.38.2 ns1 ns2 mx1 mx2 jump"
+VMS="router dns_10.0.38.2 ns1 ns2 mx1 mx2 jump nas"
 
 if test "$(id -u)" != "0"; then
 	echo "Must be run as root"

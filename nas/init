@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -rf /freespace
+
+exec /lib/systemd/systemd
