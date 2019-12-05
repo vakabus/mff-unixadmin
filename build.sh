@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if test "$NO_CACHE" = "true"; then
+	PACSTRAP_ARG=
+else
+	PACSTRAP_ARG=-c
+fi
+
 name=$1
 
 if test -z "$name"; then
@@ -17,7 +23,7 @@ back_up=../..
 
 mkdir -p $root
 echo "Initializing rootfs with packages" 1>&2
-pacstrap -c $root base sudo linux zerotier-one $packages
+pacstrap $PACSTRAP_ARG $root base sudo linux zerotier-one $packages
 
 
 echo "Copying configuration"
@@ -73,5 +79,3 @@ cd $root; find -print0  | cpio --null -ov --format=newc 2>/dev/null | gzip > "$b
 
 echo "Cleaning up rootfs dir"
 rm -rf $root
-
-chown -R vasek:vasek $outdir

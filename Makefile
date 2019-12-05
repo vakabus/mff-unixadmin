@@ -4,7 +4,7 @@ all: $(foreach _vm,$(VMS),_build/$(_vm)-rootfs.cpio.gz)
 
 define VMBUILD
 _build/$(1)-rootfs.cpio.gz: $(shell find $(1) -type f)
-	@if test "$$(id -u)" != "0"; then \
+	@if test "$$$$(id -u)" != "0"; then \
 		echo "Must be run as root"; \
 		exit 1; \
 	fi
