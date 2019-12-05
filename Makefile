@@ -28,7 +28,12 @@ $(foreach _vm, $(VMS), $(eval $(call VMBUILD,$(_vm))))
 deploy:
 	./deploy.sh
 
-staged-full-build: buildvm
-	./deploy.sh
+clean-and-full-staged-bootstrap:
+	rm -rf _build
+	@$(MAKE) --no-print-directory buildvm
+	sudo -u vasek ./deploy.sh
 	sleep 20
-	ssh -J unixadmin 10.0.0.238 "make_vms.sh"
+	sudo -u vasek ssh -J unixadmin 10.0.0.238 "make_vms.sh"
+
+clean-and-full-bootstrap: all
+	sudo -u vasek ./deploy.sh
