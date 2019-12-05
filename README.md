@@ -7,9 +7,8 @@ This is my obscure setup for unix administration class on MFF UK. It's a set of 
 Building the VMs requires root permissions. :(
 
 ```sh
-sudo ./build_all.sh
-# calls ./build.sh VM_SPEC_DIR
-./deploy.sh  # to upload and start the VMs on the lecture's server
+sudo make # when using parallel builds using -j30, set environment variable NO_CACHE=true
+make deploy # to upload and start the VMs on the lecture's server
 ```
 
 How to run the VMs locally?
@@ -28,7 +27,7 @@ supervisord -n # to run
 * do few funky optimizations
 * compress it all into a CPIO archive
 
-`build_all.sh` script builds on top of the `build.sh` script. It just manages build for all the VMs, it calls `build.sh` script sequentially for all configured VMs. As an optimization, it checks whether the build is actually needed by comparing modification times of files.
+`Makefile` build script builds on top of the `build.sh` shell script. It just manages build for all the VMs, it calls `build.sh` script sequentially for all configured VMs.
 
 As a result, images that could be used for boot end up all in `_build` directory.
 
@@ -36,4 +35,4 @@ As a result, images that could be used for boot end up all in `_build` directory
 
 The actual runtime is governed by supervisord, simple service manager written in Python. I installed it using miniconda. `supervisord.conf` file contains all configuration it needs.
 
-To actually start the runtime, `deploy.sh` script is used. It uploads all images to the host server and restarts the service manager.
+To actually start the runtime, `deploy.sh` script is used. It uploads all images to the host server and restarts the service manager. It can be called from the `Makefile`

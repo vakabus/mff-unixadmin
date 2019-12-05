@@ -27,3 +27,8 @@ $(foreach _vm, $(VMS), $(eval $(call VMBUILD,$(_vm))))
 .PHONY: deploy
 deploy:
 	./deploy.sh
+
+staged-full-build: buildvm
+	./deploy.sh
+	sleep 20
+	ssh -J unixadmin 10.0.0.238 "make_vms.sh"

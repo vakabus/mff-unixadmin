@@ -65,6 +65,7 @@ chown -R root:root $root/etc
 cp $root/boot/vmlinuz-linux $outdir/kernel.img
 
 # reducing size of the image
+rm -rf $root/var/cache/pacman/
 rm -rf $root/usr/share/man
 rm -rf $root/usr/share/doc
 rm -rf $root/usr/share/gtk-doc

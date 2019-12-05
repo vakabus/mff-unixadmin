@@ -19,7 +19,7 @@ rm -rf _disks
 mkdir -p _disks
 cd _disks
 for img in $images; do
-	qemu-img create \$img 8G
+	qemu-img create \$img 16G
 done
 EOL
 }

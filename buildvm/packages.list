@@ -9,3 +9,4 @@ arch-install-scripts
 make
 cpio
 curl
+rsync
