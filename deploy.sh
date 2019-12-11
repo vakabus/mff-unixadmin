@@ -29,8 +29,18 @@ recreate_data_disks() {
 rm -rf _data_disks
 mkdir -p _data_disks
 cd _data_disks
+
+# nas
 for i in \$(seq 0 9); do
 	qemu-img create \$i.img 1G
+done
+
+# btrfs_nas
+for i in \$(seq 0 5); do
+	qemu-img create b\$i.img 4G
+done
+for i in \$(seq 6 9); do
+	qemu-img create b\$i.img 8G
 done
 EOL
 }

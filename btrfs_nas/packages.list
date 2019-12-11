@@ -1,0 +1,11 @@
+openssh
+htop
+vim
+nload
+strace
+mtr
+mdadm
+lvm2
+btrfs-progs
+snapper
+snap-sync
