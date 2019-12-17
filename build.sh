@@ -23,7 +23,7 @@ back_up=../..
 
 mkdir -p $root
 echo "Initializing rootfs with packages" 1>&2
-pacstrap $PACSTRAP_ARG $root base sudo linux zerotier-one $packages
+pacstrap $PACSTRAP_ARG $root base sudo linux zerotier-one collectd rrdtool yajl $packages
 
 
 echo "Copying configuration"
@@ -42,6 +42,8 @@ mv $root/etc/os-release $root/etc/initrd-release
 
 # save name into rootfs for debugging
 echo "$name" > $root/name
+printf "$name" > $root/etc/hostname
+echo "127.0.0.1   $name" >> $root/etc/hosts
 
 # changing password for root user and teacher
 cat $root/etc/shadow | sed '/^root:.*$/d' > $root/etc/shadow2
@@ -49,6 +51,10 @@ echo 'root:$6$qsvN0BqcBPHVAV8b$NDSivlZ4N6NVJqS4UpaGDZbOX6axQFO87.rK1MA1V.iZaYPL7
 echo 'teacher:$6$qsvN0BqcBPHVAV8b$NDSivlZ4N6NVJqS4UpaGDZbOX6axQFO87.rK1MA1V.iZaYPL7c7JlFUAbw6yXOhzq/tVvzK2TTyJPssy5n1GC1:18203::::::' >> $root/etc/shadow
 cat $root/etc/shadow2 >> $root/etc/shadow
 rm $root/etc/shadow2
+
+# setup collectd
+cp _tools/collectd.conf $root/etc/collectd.conf
+ln -s /usr/lib/systemd/system/collectd.service $root/etc/systemd/system/multi-user.target.wants/collectd.service
 
 # create teacher user as alias for root
 grep root $root/etc/passwd | sed 's/^root/teacher/' >> $root/etc/passwd
